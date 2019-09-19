@@ -53,8 +53,9 @@ function cellValue (row,i) {
 				row.children[j].className="text-nowrap"; //Запрет переноса строки 
 				break;
 			case "Изображение":
-				row.children[j].innerHTML = JSON_FILE[i].img;
-				row.children[j].style.wordBreak = 'break-all' //Автоматический перенос строки
+				let img= document.createElement("img"); //Создаём картинку `
+				img.src = JSON_FILE[i].img;
+				row.children[j].appendChild(img);
 				break;
 		}
 	}
@@ -111,9 +112,10 @@ function openModalWindow() {
 		while (target.className!="rows") { //Пока не дошло до строки (tr в дереве DOM) с классом rows
 			target=target.parentElement; //Переходим к родителю текущего элемента
 		}
-		for (let j=0; j<inputs.length; j++) {
+		for (let j=0; j<inputs.length-1; j++) {
 			inputs[j].value=target.children[j+1].textContent; //Записываем в поля ввода соответствующие значения из ячеек
 		}
+		inputs[inputs.length-1].value=target.children[inputs.length].children[0].src;
 		saveChanges(target,inputs); //Сохраняем все изменения 
 	}
 }
@@ -123,10 +125,14 @@ function saveChanges(elem,inputs) {
 	let saveBtn = document.querySelector(".modal-footer button"); //Кнопка "Сохранить"
 	saveBtn.onclick = function() { //Вешаем обработчик события на кнопку
 		for (let j=0; j<inputs.length; j++) {
-			elem.children[j+1].textContent=inputs[j].value; //Записываем в ячейки значения из полей ввода
 			if (inputs[j].previousElementSibling.textContent=="Ключевые фразы")// Проверяем значение "левого" элемента в дереве DOM (label) 
 				//Используем функция вывода массива memo по строкам и записываем результат её работы в соответствующую ячейку
 				elem.children[j+1].innerHTML=newMemo(inputs[j].value.split(".")); //В качестве аргумента передаём массив введённых фраз
+			else if (inputs[j].previousElementSibling.textContent=="Ссылка на изображение") 
+				elem.children[j+1].children[0].src=inputs[j].value;//Изменяем ссылку
+			else {
+				elem.children[j+1].textContent=inputs[j].value; //Записываем в ячейки значения из полей ввода
+			}
 		}
 		tbodyMainCopy=tbodyMain.innerHTML; //Обновляем копию тела таблицы
 	}
