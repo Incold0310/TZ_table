@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="indexStyle.css">
+	<title>Таблица</title>
+</head>
+<body>
+	
+	<div class="container-fluid dropdown bg-light" id="viewChange">
+		<button class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" id="dropdownButton">Настройка области видимости</button>
+		<form class="form-inline" onsubmit="return false;">
+			<div class="input-group">
+				<div class="input-group-prepend">
+  					<button class="btn btn-outline-secondary btn-lg" id="searchWord"><i class="fa fa-search"></i></button>
+  				</div>
+   				<input class="form-control form-control-lg" type="text" placeholder="Поиск" id="inputSearch" value="">
+  				<div class="input-group-append">
+    				<button class="btn btn-outline-secondary btn-lg" id="clearInput"><i class="fa fa-close"></i></button>
+ 				</div>
+ 			</div>
+		</form>
+
+		<div class="dropdown-menu" aria-labelledby="dropdownButton">
+			<span class="dropdown-header">Уберите маркер с поля, которое хотите скрыть</span>
+			<ul>
+				 <li><input type="checkbox" class="form-check-input" id="numCheck" checked="true">Номер</li>
+    			<li><input type="checkbox" class="form-check-input" id="idCheck" checked="true">Идентификатор</li>
+    			<li><input type="checkbox" class="form-check-input" id="nameCheck" checked="true">Имя</li>
+    			<li><input type="checkbox" class="form-check-input" id="surnameCheck" checked="true">Фамилия</li>
+    			<li><input type="checkbox" class="form-check-input" id="genderCheck" checked="true">Пол</li>
+    			<li><input type="checkbox" class="form-check-input" id="memoCheck" checked="true">Ключевые фразы</li>
+    			<li><input type="checkbox" class="form-check-input" id="imgCheck" checked="true">Изображение</li>
+    		</ul>
+    		<div class="btn-group-vertical">
+    			<button class="btn btn-lg btn-success" id="applyBtn">Применить</button>
+    			<button class="btn btn-lg btn-danger" id="deleteBtn">Сбросить всё</button>
+    		</div>
+		</div>
+	</div>
+
+	<div class="container-fluid" id="tableDiv">
+		<table class="table table-bordered text-center table-hover table-sm" id="table">
+			<thead class="thead-dark sticky-top">
+				<tr class="active">
+					<th>Номер</th>
+					<th>Идентификатор</th>
+					<th>Имя</th>
+					<th>Фамилия</th>
+					<th>Пол</th>
+					<th>Ключевые фразы</th>
+					<th>Изображение</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+	
+	<div class="modal fade" id="modalWindow" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Редактирование строки</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+           					<label class="col-form-label">Идентификатор</label>
+            				<input type="text" class="form-control formInp" value="">
+         				 </div>
+         				 <div class="form-group">
+           					<label class="col-form-label">Имя</label>
+            				<input type="text" class="form-control formInp" value="">
+         				 </div>
+         				 <div class="form-group">
+           					<label class="col-form-label">Фамилия</label>
+            				<input type="text" class="form-control formInp" value="">
+         				 </div>
+         				 <div class="form-group">
+           					<label class="col-form-label">Пол</label>
+            				<input type="text" class="form-control formInp" value="">
+         				 </div>
+         				 <div class="form-group">
+           					<label class="col-form-label">Ключевые фразы</label>
+            				<textarea type="text" class="form-control formInp"></textarea>
+            				<small class="form-text text-muted">
+  								В конце фразы, ставьте точку. Это будет означать конец одной фразы для кода.
+							</small>
+         				 </div>
+         				 <div class="form-group">
+           					<label class="col-form-label">Изображение</label>
+            				<textarea type="text" class="form-control formInp"></textarea>
+         				 </div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" data-dismiss="modal">Сохранить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script defer type="text/javascript" src="json.js"></script>
+<script defer type="text/javascript" src="indexJS.js"></script>
+
+</body>
+</html>

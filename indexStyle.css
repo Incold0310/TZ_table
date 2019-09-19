@@ -1,0 +1,24 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+#tableDiv, button, #viewChange {
+	padding: 0;
+}
+.dropdown-header {
+	font-size: 20px !important;
+}
+.dropdown-menu li {
+	list-style-type: none;
+}
+.dropdown-menu ul {
+	float: left;
+	padding-right: 300px; 
+}
+.btn-group-vertical {
+	padding-top: 30px;
+	padding-right: 10px;
+}
+.form-inline {
+	float: right;
+}
